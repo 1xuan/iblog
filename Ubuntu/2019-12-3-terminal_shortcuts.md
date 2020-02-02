@@ -8,6 +8,8 @@ Referenced:
 
 [Ubuntu终端Terminal常用快捷键](https://www.jb51.net/os/Ubuntu/141723.html)
 
+[The Best Keyboard Shortcuts for Bash (aka the Linux and macOS Terminal)](https://www.howtogeek.com/howto/ubuntu/keyboard-shortcuts-for-bash-command-shell-for-ubuntu-debian-suse-redhat-linux-etc/)
+
 ### Scroll 
 
 - scroll whole page 

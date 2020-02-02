@@ -36,7 +36,7 @@ In [4]: timeit foo2()
 
 It takes nearly same amount of time.
 
-# And another way
+And another way
 
 ~~~bash
 In [1]: timeit compile('a, b = 1, 2', '<string>', 'exec')                      
@@ -160,5 +160,7 @@ Obviously, globals() dictionary will not change normally (if don't use `global` 
 ### Referenced for more information
 
 [Built-in Functions](https://docs.python.org/3/library/functions.html#exec)
+
 [Be careful with exec and eval in Python](https://lucumr.pocoo.org/2011/2/1/exec-in-python/)
+
 [https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile#](https://stackoverflow.com/questions/2220699/whats-the-difference-between-eval-exec-and-compile#)
