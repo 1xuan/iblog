@@ -26,7 +26,7 @@ class MyClass(MySuperClass, MyMixin):
 
 The order: `construct` -> `initialize`.
 
-If `__new__` is invoked during the object construction, and then `__init__` will be invoked immediately along with `self` passed. If `__new__()` does not return an instance of cls, then the new instance’s `__init__()` method will not be invoked.The `__new__` method can also return an instance of a different class, and when that happens, the interpreter does not call `__init__` . Actually, `__init__` is forbidden from returning anything, it's really an 'intializer'.
+If `__new__` is invoked during the object construction, and then `__init__` will be invoked immediately along with `self` passed. If `__new__()` does not return an instance of cls, then the new instance’s `__init__()` method will not be invoked. The `__new__` method can also return an instance of a different class, and when that happens, the interpreter does not call `__init__` . Actually, `__init__` is forbidden from returning anything, it's really an 'intializer'.
 
 **For instance:**
 
@@ -71,14 +71,56 @@ no non-`None` value may be returned by `__init__`.
 
 - variable named with prefix `__`
 
-~~~python
-class Foo:
-    __this = True
+Python mangles these names and it is used to avoid name clashes with names defined by subclasses.
 
->>> vars(Base)
-mappingproxy({'__module__': '__main__', '_Base__this': True, '__dict__': <attribute '__dict__' of 'Base' objects>, '__weakref__': <attribute '__weakref__' of 'Base' objects>, '__doc__': None})
->>> Base._Base__this
-True
+Interpreter will change name automatically by adding a prefix the class where they defined. And it will be stored into dict, using a new name. We should instead use new name if we wanna get it, and we still use original name if we just use it in method(such way, Interpreter will resolve it by itself).
+
+~~~python
+class A:
+    def __init__(self, a):
+        self.__a = a
+
+
+class B(A):
+    def __init__(self, a, b):
+        self.__b = b
+        self.__c__ = 3
+        super().__init__(a)
+
+    def get_a(self):
+        print('self.__a:', self.__a)
+
+    def get_b(self):
+        print('self.__b:', self.__b)
+
+a = A(1)
+b = B(1, 2)
+
+>>> a.__a
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'A' object has no attribute '__a'
+>>> a.__dict__	
+{'_A__a': 1}
+    
+>>> b.__dict__
+{'_B__b': 2, '__c__': 3, '_A__a': 1}
+>>> b._B__b
+2
+>>> b.__c__
+3
+>>> b._A__a
+1
+
+>>> b.get_a()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "main.py", line 13, in get_a
+    print('self.__a:', self.__a)
+AttributeError: 'B' object has no attribute '_B__a'
+>>> b.get_b()
+self.__b: 2
+
 ~~~
 
 ## Special Method
@@ -125,17 +167,17 @@ class Record:
 ~~~
 
 
-### Customizing attribute access
+#### Customizing attribute access
 
-> Attribute access using either dot notation or the built-in functions `gettattr` , `hasattr` and `setattr` trigger the appropriate special methods listed here. Reading and writing attributes directly in the instance `__dict__` does not trigger these special methods — and that’s the usual way to bypass them if needed.
+> Attribute access using either dot notation or the built-in functions `gettattr` , `hasattr` and `setattr` trigger the appropriate special methods listed here. 
+>
+> getting attrs order: `__getattribute__` -> `__dict__` -> `class attrs` -> `__getattr__`
 
-- *\_\getattr\_\_(self, name)*
+- *\_\_getattr\_\_(self, name)*
 
-- *\_\setattr\_\_(self, name)*
+- *\_\_setattr\_\_(self, name)*
 
 - *\_\_getattribute\_\_(self, name)*
-
-> Called unconditionally to implement attribute accesses for instances of the class.
 
 A simple instance:
 
@@ -165,15 +207,15 @@ guido
 
 The implementation of ...
 
-> descr.__get__(self, obj, type=None) -> value
+> descr.\_\_get\_\_(self, obj, type=None) -> value
 
 - If instance of class invocate descriptor by dot notation, so, the obj is the instance, and the type parameter is type(instance).
 
 - If class invocate descriptor, so the obj is the None, and the type is class.
 
-> descr.__set__(self, obj, value) -> None
+> descr.\_\_set\_\_(self, obj, value) -> None
 
-> descr.__delete__(self, obj) -> None
+> descr.\_\_delete\_\_(self, obj) -> None
 
 - data descriptor: object defines `__set__` or `__delete__`
 
@@ -429,5 +471,5 @@ class Metaclass(type):
 
 [Python official doc: Data model](https://docs.python.org/3/reference/datamodel.html#basic-customization)
 
-<<Fluent Python>> -Luciano Ramalho
+\<\<Fluent Python\>\> -Luciano Ramalho
 
