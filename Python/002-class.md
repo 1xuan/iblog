@@ -337,13 +337,41 @@ class LineItem:
         return self.weight * self.price
 ~~~
 
+
+> descr.\_\_set_name_\_\_(self, obj, value) -> None
+
+​	It is used to set name for descriptor, and called within `type.__new__` after base class created in which descriptor is created.
+
+~~~Python
+class Desc:
+    def __get__(self, inst, class_):
+        print(inst, class_)
+    def __set__(self, inst, value):
+        print(inst, value)
+    def __set_name__(self, owner, name):
+        print(owner, name)
+
+class Foo(Base):
+    print('start')
+    d = Desc()
+    print('over')
+
+
+# result:
+start
+over
+<class '__main__.Foo'> d
+~~~
+
 *for more info*
 
 [Descriptor HowTo Guide](https://docs.python.org/3/howto/descriptor.html)
 
-### \_\_subclasses\_\_
+## subclass
 
-> Function to return subclasses of class
+> \_\_subclasses\_\_
+
+​	*Function to return subclasses of class (note: just return first level subclasses)*
 
 ~~~python
 class Foo(object): pass
@@ -356,6 +384,28 @@ class Bing(Bar): pass
 ~~~
 
 [How to find all the subclasses of a class given its name?](https://stackoverflow.com/questions/3862310/how-to-find-all-the-subclasses-of-a-class-given-its-name)
+
+> \_\_init\_subclass\_\_
+
+​	 *hook that initializes **all subclasses** of a given class.*
+
+​	run order: `type.__new__` -> `__set_name__` -> `__init_subclass__`
+
+~~~Python
+# It could be used to register subclasses
+class PluginBase:
+    subclasses = []
+
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__(**kwargs)
+        cls.subclasses.append(cls)
+~~~
+
+*for more info*
+
+[PEP 487 -- Simpler customisation of class creation](https://www.python.org/dev/peps/pep-0487/)
+
+[Understanding \_\_init_subclass\_\_](https://stackoverflow.com/questions/45400284/understanding-init-subclass#:~:text=__init_subclass__%20is%20just,attribute%20values%20on%20those%20subclasses.)
 
 ---
 
