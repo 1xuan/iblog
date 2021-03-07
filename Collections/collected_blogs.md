@@ -4,3 +4,5 @@
 
 - [A letter to myself as a fresh software engineer](https://www.florio.dev/20200328-letter-to-myself/)
 
+- [Hype Driven Development](https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22)
+
