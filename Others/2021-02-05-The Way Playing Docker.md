@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y APP
 WORKDIR /var/www/html/
 ADD index.html ./
 EXPOSE 80
+ENTRYPOINT ['some stuff']
 CMD ["nginx", "-g", "daemon off;"]
 ~~~
 
@@ -24,7 +25,7 @@ CMD ["nginx", "-g", "daemon off;"]
     
 - RUN
     
-    Be used to execute shell command in the new layer and commit the result in the new image
+    Be used to execute shell command in the new layer and commit the result in the new image (Only executes at image build time, not container run time)
 
 - WORKDIR
     
@@ -38,7 +39,13 @@ CMD ["nginx", "-g", "daemon off;"]
 
     Expose port on which a containers listens for connections
 
-- CMD
-    
+- ENTRYPOINT
+    Which is prepending part of CMD
 
+- CMD
+    Sepcify a *default* command that executes when the container is starting
+    
+*referece [Dockerfile](https://www.educba.com/dockerfile/)*
+
+*referece [Difference Between run, cmd and entrypoint in a Dockerfile](https://www.baeldung.com/ops/dockerfile-run-cmd-entrypoint)*
 
