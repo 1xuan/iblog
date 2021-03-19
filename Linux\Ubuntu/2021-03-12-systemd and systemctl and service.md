@@ -1,6 +1,30 @@
 # systemd and systemctl and service
 
+- *short answer*: 
 
+    - `systemd`(system deamon): systemd is a system and service manager for Linux operating systems.  When run as first process on boot (as PID 1), it acts as init system that brings up and maintains userspace services.
+
+    - `systemctl`: systemctl may be used to introspect and control the state of the "systemd" system and service manager. It is a collection of system management libraries, utilities and daemons.
+
+    - `service`: The service command is a wrapper script that allows system administrators to start, stop, and check the status of services without worrying too much about the actual init system being used.
+
+## usage
+
+- check service status
+
+~~~bash
+systemctl status servicename.service  # suffix is optional
+~~~
+
+- starting or stopping a service
+
+~~~bash
+systemctl start servicename  # systemctl stop servicename
+~~~
+
+~~~bash
+service servicename start
+~~~
 
 **Reference**
 
