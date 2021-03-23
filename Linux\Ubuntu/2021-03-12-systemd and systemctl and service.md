@@ -8,12 +8,22 @@
 
     - `service`: The service command is a wrapper script that allows system administrators to start, stop, and check the status of services without worrying too much about the actual init system being used.
 
+## location
+
+The package-provided service files are all usually located in `/lib/systemd/sytem. And show directories where services located:
+
+~~~bash
+$ man systemd.unit
+~~~
+
 ## usage
 
 - check service status
 
 ~~~bash
 systemctl status servicename.service  # suffix is optional
+
+# systemctl show servicename.service
 ~~~
 
 - starting or stopping a service
