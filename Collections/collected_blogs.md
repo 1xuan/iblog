@@ -6,3 +6,15 @@
 
 - [Hype Driven Development](https://blog.daftcode.pl/hype-driven-development-3469fc2e9b22)
 
+- ["ON WRITING" by Robert J. Sawyer Heinlein's Rules](https://www.sfwriter.com/ow05.htm)
+    The article is about six principles of writing.
+
+    > 1. You Must Write
+    > 2. Finish What You Start
+    > 3. You Must Refrain From Rewriting, Except to Editorial Order
+    > 4. You Must Put Your Story on the Market
+    > 5. You Must Keep it on the Market until it has Sold
+    > 6. Start Working on Something Else
+
+    Such rule apply well to programming of Open Source.
+
