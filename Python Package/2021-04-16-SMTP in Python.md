@@ -2,6 +2,14 @@
 
 First of all, launch a local smtp server.
 
+- Utility in Module in Shell
+
+~~~bash
+python -m smtpd -n -c DebuggingServer localhost:1025
+~~~
+
+- Utility in Code
+
 ~~~python
 from datetime import datetime
 import asyncore
