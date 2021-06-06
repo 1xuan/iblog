@@ -46,7 +46,7 @@ class Foo:
 
 ### Using Descriptor
 
-> Use descriptor as decorator to change class method as a descritor attr, to create a instance attr which name is same as the methond name, because of `get descriptor` characteristic, the instance will access instance attr direcly instead of discriptor when invoke it by dot 
+> Use descriptor as decorator to change class method as a descritor attr, to create a instance attr which name is same as the methond name, because of `get descriptor` characteristic, the instance will access instance attr directly instead of discriptor when invoke it by dot 
 
 ~~~python
 class lazy_property:
@@ -84,7 +84,7 @@ def fib(n):
 
 [Python实现：详解LRU缓存淘汰算法](https://mp.weixin.qq.com/s/kB2kaeYaZliDfTxsZ4ONaA)
 
-### Using third-module
+### Using third-party module
 
 - [cachetools](https://github.com/tkem/cachetools)
 
