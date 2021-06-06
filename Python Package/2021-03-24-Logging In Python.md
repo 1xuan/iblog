@@ -119,7 +119,7 @@ __main__ - WARNING - This is a warning
 __main__ - ERROR - This is an error
 ~~~
 
-## Tackle specific problem
+## specific problem
 
 ### Using rotatingFileHandler to save log
 

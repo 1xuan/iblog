@@ -18,3 +18,14 @@
 
     Such rule apply well to programming of Open Source.
 
+- [Learn by reading code: Python standard library design decisions explained (for advanced beginners)](https://death.andgravity.com/stdlib)
+
+    If you want to develop an eye by reading, what code should you read and how to?
+    
+    > 1.The Python standard library isn't great for learning "good" style. whileall the modules are useful, they're not very uniform.
+    > 2.Style aside, there's a lot to learn from the standard library, since it solves real problems for a diverse population of developers.
+
+    It helps to read "good" code and rightly.
+
+- [Teach Yourself Programming in Ten Years -Peter Norvig](http://norvig.com/21-days.html)
+
