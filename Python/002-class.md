@@ -507,7 +507,7 @@ class Metaclass(type):
         attrs['response'] = lambda self: "I am response" 
         return type.__new__(cls, name, bases, attrs)
 
->>> class myclass(metaclass=Metaclass): pass
+    >>> class myclass(metaclass=Metaclass): pass
 >>> c = myclass()
 >>> c.response()                                                           
 'I am response'
