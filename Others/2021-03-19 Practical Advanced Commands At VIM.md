@@ -26,3 +26,5 @@
 
 - `ctrl-r0`: paste content yanked last
 
+- `<ctrl>-a (or <ctrl><sapce>)`: insert previously inserted text
+
