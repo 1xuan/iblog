@@ -29,3 +29,12 @@
 
 - [Teach Yourself Programming in Ten Years -Peter Norvig](http://norvig.com/21-days.html)
 
+
+# About Python
+
+[The Complete Python Development Guide](https://testdriven.io/guides/complete-python/#Start)
+
+    Software development is more than just writing code.
+
+    > Writing code is just the first step toward building an application. You need to deploy, maintain, and evolve it. By using the right tools you can simplify your development and focus on providing value to your users.
+
