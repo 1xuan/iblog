@@ -79,6 +79,9 @@ Interpreter will change name automatically by adding a prefix the class where th
 class A:
     def __init__(self, a):
         self.__a = a
+        
+    def get_a_from_A(self):
+        print('self.__a:', self.__a)
 
 
 class B(A):
@@ -118,6 +121,9 @@ Traceback (most recent call last):
   File "main.py", line 13, in get_a
     print('self.__a:', self.__a)
 AttributeError: 'B' object has no attribute '_B__a'
+>>> b.get_a_from_A()
+self.__a: 1
+
 >>> b.get_b()
 self.__b: 2
 
