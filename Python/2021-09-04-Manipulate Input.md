@@ -1,6 +1,4 @@
-## read from stdin
-
-- input
+- **input**
 
 ~~~python
 >>> text = input()
@@ -9,7 +7,7 @@ yes
 'yes'
 ~~~
 
-- readlines, (read, readline, ...)
+- **readlines**, (read, readline, ...)
 
 ~~~python
 >>> import sys
@@ -24,7 +22,7 @@ But all the ways above, we must get input stream, the program will block forever
 
 So use following approachs
 
-- select
+- **select**
 
 ~~~python
 # main.py
@@ -45,7 +43,7 @@ $ echo '' | python main.py
 Have data!
 ~~~
 
-- sys.stdin.isatty
+- **sys.stdin.isatty**
 
 ~~~python
 # main.py
