@@ -65,3 +65,7 @@ not sys.stdin.isatty
 
 `sys.stdin.isatty` will judge whether this is an 'interactive' stream. Return False if it isn't else True.
 
+**reference**
+
+[How do I check if stdin has some data?](https://stackoverflow.com/questions/3762881/how-do-i-check-if-stdin-has-some-data)
+
