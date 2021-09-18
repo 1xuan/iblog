@@ -56,3 +56,6 @@ class MyLoader(Loader):
 [How to implement an import hook that can modify the source code on the fly using importlib?](https://stackoverflow.com/questions/43571737/how-to-implement-an-import-hook-that-can-modify-the-source-code-on-the-fly-using)
 
 [Import almost anything in Python: an intro to module loaders and finders](https://blog.quiltdata.com/import-almost-anything-in-python-an-intro-to-module-loaders-and-finders-f5e7b15cda47)
+
+[How does python find packages?](https://leemendelowitz.github.io/blog/how-does-python-find-packages.html)
+
