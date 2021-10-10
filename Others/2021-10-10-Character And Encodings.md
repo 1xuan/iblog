@@ -1,8 +1,8 @@
-**reference**
-
-## Some Confusion 
+# Some Confusion 
 
 There are two part, disk to memory(how is text read from disk to memory, what is the operation), memory to screen(how does screen understand the bytes-stream), I still don't get it.
+
+# Reference
 
 - [Python str vs unicode types](https://stackoverflow.com/questions/18034272/python-str-vs-unicode-types)
 
