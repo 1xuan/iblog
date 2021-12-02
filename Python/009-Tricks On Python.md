@@ -61,3 +61,14 @@ $ {**a, **b}
 {'a': 1, 'b': 2}
 ~~~
 
+## PACKAGE
+
+- `__main__.py`
+
+if `__main__.py` in package, then
+
+~~~bash
+$ python package (__main__.py be run as main.py in package)
+$ python -m package (__main__.py be run as a module in package)
+~~~
+

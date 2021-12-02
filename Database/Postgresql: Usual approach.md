@@ -28,3 +28,17 @@ with moved_rows as (
 select * from moved_rows;
 ~~~
 
+
+# PG COMMAND
+
+- next query result be export to file
+~~~sql
+\o ./result_file ()
+~~~
+
+- back up pg
+
+~~~bash
+$ pg_dump -C -h {TARGET_HOST} -p 5432 -U postgres {OLDDB} | psql -h localhost -p 5432 -U postgres -d {NEWDB}
+~~~
+
