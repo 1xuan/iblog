@@ -1,5 +1,27 @@
 ## Password-Less login
 
+### execute linux command on remote host over ssh
+
+- executing command on remote host over ssh
+
+~~~bash
+ssh {remote_host} 'ls /home'
+~~~
+
+- executing multiple commands
+
+~~~bash
+ssh {remote_host} < commands.txt
+~~~
+
+- executing arbitrary screen-based program on remote host
+
+~~~bash
+ssh -t {remote_host} vim demo.txt
+~~~
+
+
+
 ### port forwarding
 
 - ssh

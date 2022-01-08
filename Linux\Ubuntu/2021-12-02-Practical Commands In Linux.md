@@ -1,5 +1,19 @@
 # FILE
 
+## view file
+
+- strings (view printable strings in file)
+
+~~~bash
+$ strings {BINARYFILE}
+~~~
+
+- wc (count lines of file)
+
+~~~bash
+$ ws -l {FILE}
+~~~
+
 ## find files
 
 - find 
