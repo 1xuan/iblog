@@ -1,2 +1,1 @@
-# tech-articles
-some articles about tech
+MY Blog
