@@ -1,5 +1,15 @@
 # FILE
 
+## statistics
+
+### statistics lines of files under directory
+
+- statistics lines of code of project
+
+~~~bash
+$ find . -type f -name '*.py' | xargs strings | wc -l
+~~~
+
 ## view file
 
 - strings (view printable strings in file)
@@ -49,6 +59,21 @@ $ xxd -r FILE    # convert text to binary
 $ grep {WORD} -r ./
 ~~~
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # NETWORK
 
 - launch a local tcp server
@@ -79,4 +104,16 @@ $ nmap -p- 192.168.122.1
 ~~~bash
 $ sudo tcpdump -i any -w /tmp/http.log &
 ~~~
+
+
+
+
+
+
+
+
+
+
+
+
 
