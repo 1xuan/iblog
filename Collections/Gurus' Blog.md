@@ -4,3 +4,5 @@
 
 - [paul graham](http://www.paulgraham.com/index.html) [Author of << Hackers and Painters >>]
 
+- [Peter Norvig](https://norvig.com/)
+
