@@ -66,3 +66,19 @@ have technical experience but who are 10 years behind the times. Technically com
 ### Chapter 33: Personal Character
 
 > The most important work in effective programming is thinking, and people tend not to look busy when they’re thinking. If I worked with a programmer who looked busy all the time, I’d assume that he was not a good programmer because he wasn’t using his most valuable tool, his brain.  - 33.7 Laziness
+
+
+
+# <<Refactoring>>  second edition -Martin Fowler
+
+My overall advice on performance with refactoring is: Most of the time you should ignore it.
+
+When programming, follow the camping rule: Always leave the code base leahthier than when you found it. It will never be perfect, but it should be better.
+
+The true test of good code is how easy it is to change it.
+
+I am a very lazy programmer. One of my forms of laziness is that I never remember things about the code I write. Indeed, I deliberately try not remember anything I can look up, because I'm afraid my brain will get full. I make a point of trying to put everything I should remember into the code so I don't have to remember it.
+
+It reminds me of a statement Kent Beck often makes about himself: "I'm not a great programmer; I'm just a good programmer with great habits".
+
+
