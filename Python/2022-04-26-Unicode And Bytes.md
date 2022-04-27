@@ -1,6 +1,6 @@
 # Unicode And Bytes
 
-> Humans speak text. Computer speak bytes.
+> Humans speak text. Computers speak bytes.
 
 This article mainly focus on encoding of Python3, invovling Python2. Due to encoding is a huge subject, I can't dive deeply into everything about encoding, just try around Python as possible as I can.
 
@@ -30,24 +30,27 @@ As for this question, giving an example would be great idea. SO,
     
 Take `utf8` and character 'a' as an example:
         
-    ~~~
-    
-      text                   Unicode        (encode)      utf8-encoded
-      +---+                 +--------+        --->        +----------+
-      | a | <-------------> | U+0061 | <----------------> | 01100001 |
-      +---+                 +--------+        <---        +----------+
-    character                code point     (decode)         bytes
+~~~
 
-    ~~~
+  text                   Unicode        (encode)      utf8-encoded
+  +---+                 +--------+        --->        +----------+
+  | a | <-------------> | U+0061 | <----------------> | 01100001 |
+  +---+                 +--------+        <---        +----------+
+character                code point     (decode)         bytes
+
+~~~
         
 ## For Python
 
-> "Modern programs must handle unicode -Python has excellent support for Unicode, and will keep getting better."            -GvR
+>
+> "Modern programs must handle unicode -Python has excellent support for Unicode, and will keep getting better."       
+>
+>                                                             -GvR
 
 Python2 and Python3 is different. The string handling part is among the greatest different parts.
     
-    - In Python2, `str` is a sequence of bytes, and there is separate type `unicode`.
-    - In Python3, `str` is contains Unicode characters(a sequence of code point, and even identifiers can be unicode characters). There is a separate type `bytes` which is same as `str` of Python2.
+- In Python2, `str` is a sequence of bytes, and there is separate type `unicode`.
+- In Python3, `str` is contains Unicode characters(a sequence of code point, and even identifiers can be unicode characters). There is a separate type `bytes` which is same as `str` of Python2.
 
 As for how `str` is stored in memory, We don't need to care about that much. It could be UCS-2 or UCS-4, it doesn't matter, entirely possbile being changed over time. (I find out that memory occupied by str is getting smaller, it should be Python core developers keep optimizing it.)
 
@@ -79,7 +82,7 @@ TypeError: must be str, not bytes
 Many things become much easier in Python3, `str` is a sequence of code points, it can contain any unicode characters, and there is no implicit conversion between `bytes` and `str`.
 
 <details>
-    <summary>In python2, it is exactly converse:</summary>
+<summary>In Python2, it is exactly converse:</summary>
 
 ~~~python
 >>> my_str = '你好'
@@ -164,7 +167,9 @@ In Python source code, specific Unicode code points can be written using the `\u
 
 - function `ord`
 
+>
 > ord(c, /)
+>
 >     Return the Unicode code point for a one-character string.
 
 ~~~python
@@ -176,8 +181,11 @@ We can get number of code point of any unicode character using `ord`.
 
 - function `chr`
 
+>
 > chr(i, /)
+>
 >     Return a Unicode string of one character with ordinal i; 0 <= i <= 0x10ffff.
+>
 
 ~~~python
 >>> chr(20320)
@@ -346,7 +354,7 @@ print(locale.getpreferredencoding())
 print(sys.stdout.encoding)
 
 
-yixuan@linux:~/feelfree/flush$ python3.7 encodings.py
+$ python3.7 encodings.py
 utf-8
 utf-8
 UTF-8
@@ -374,7 +382,7 @@ UTF-8
 ascii
 ~~~
 
-The answer [How to print UTF-8 encoded text to the console in Python](https://stackoverflow.com/a/35100990/8993864) give give some details and suggestions about this.
+The answer [How to print UTF-8 encoded text to the console in Python](https://stackoverflow.com/a/35100990/8993864) gives some details and suggestions about this.
 
 **See Also**
 
