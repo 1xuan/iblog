@@ -288,7 +288,7 @@ b'\xc4\xe3\xba\xc3, world'
 {'encoding': 'ISO-8859-1', 'confidence': 0.73, 'language': ''}
 ~~~
 
-It's not quite reliabe, just as a approach as there is no other ways. You shouldnt put yourself into the situation.
+It's not quite reliabe, just as a approach as there is no other ways. You shouldn't push yourself into the situation.
 
 - operation on bytes
 
