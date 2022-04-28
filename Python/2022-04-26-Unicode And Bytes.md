@@ -4,7 +4,7 @@
 
 This article mainly focus on encoding of Python3, invovling Python2. Due to encoding is a huge subject, I can't dive deeply into everything about encoding, just try around Python as possible as I can.
 
-(note: Defaults to Python3 unless otherwise specified, some may also work in Python2)
+(note: Default to Python3 unless otherwise specified, some may also work in Python2)
 
 ## Prerequisite Knowledge
 
