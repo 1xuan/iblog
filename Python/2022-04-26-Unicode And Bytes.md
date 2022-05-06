@@ -4,7 +4,7 @@
 
 This article mainly focus on encoding of Python3, invovling Python2. Due to encoding is a huge subject, I can't dive deeply into everything about encoding, just try around Python as possible as I can.
 
-(note: Defaults to Python3 unless otherwise specified, some may also work in Python2)
+(note: Default to Python3 unless otherwise specified, some may also work in Python2)
 
 ## Prerequisite Knowledge
 
@@ -42,10 +42,7 @@ character                code point     (decode)         bytes
         
 ## For Python
 
->
-> "Modern programs must handle unicode -Python has excellent support for Unicode, and will keep getting better."       
->
->                                                             -GvR
+> "Modern programs must handle unicode -Python has excellent support for Unicode, and will keep getting better."       -GvR
 
 Python2 and Python3 is different. The string handling part is among the greatest different parts.
     
@@ -291,7 +288,7 @@ b'\xc4\xe3\xba\xc3, world'
 {'encoding': 'ISO-8859-1', 'confidence': 0.73, 'language': ''}
 ~~~
 
-It's not quite reliabe, just as a approach as there is no other ways. You shouldnt put yourself into the situation.
+It's not quite reliabe, just as a approach as there is no other ways. You shouldn't push yourself into the situation.
 
 - operation on bytes
 
@@ -336,7 +333,7 @@ the setting var:
 
 - PYTHONIOENCODING: change std I/O encoding (few reason to change it)
 
-- LC_CTYPE: locale encoding. It should be consistent with terminal encoding ([What is the process of a letter between text app and terminal?](https://stackoverflow.com/questions/72011302/what-is-the-process-of-a-letter-between-text-app-and-terminal) this question provide some useful info, but get no answer for now).
+- LC_CTYPE: locale encoding. It should be consistent with terminal encoding ([What is the process of a letter between text app and terminal?](https://stackoverflow.com/questions/72011302/what-is-the-process-of-a-letter-between-text-app-and-terminal) this question provides some useful info, but gets no answer for now).
 
 - PYTHONUTF8: [Python UTF-8 mode](https://docs.python.org/3/library/os.html#python-utf-8-mode), added in Python3.7
 
@@ -388,6 +385,14 @@ The answer [How to print UTF-8 encoded text to the console in Python](https://st
 
 - [Unicode HOWTO -Python Doc](https://docs.python.org/3.10/howto/unicode.html)
 
+
+**Reference**
+
+1. <a id='1'></a>[Unicode -wikipedia](https://en.wikipedia.org/wiki/Unicode)
+
+2. <a id='2'></a>[Byte -wikipedia](https://en.wikipedia.org/wiki/Byte)
+
+    
 **Further Reading**
 
 - [Travis Fischer, Esther Nam: Character encoding and Unicode in Python - PyCon 2014](https://www.youtube.com/watch?v=Mx70n1dL534)
@@ -397,10 +402,4 @@ The answer [How to print UTF-8 encoded text to the console in Python](https://st
 - [Mastering Python 3 I/O -PyCon US 2010](https://archive.org/details/pyvideo_289___mastering-python-3-i-o)
 
 - [How is text saved in memory? -stackoverflow](https://stackoverflow.com/questions/69514467/how-is-text-saved-in-memory)
-
-**Reference**
-
-1. <a id='1'></a>[Unicode -wikipedia](https://en.wikipedia.org/wiki/Unicode)
-
-2. <a id='2'></a>[Byte -wikipedia](https://en.wikipedia.org/wiki/Byte)
 
