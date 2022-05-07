@@ -2,7 +2,7 @@
 
 > There are two general approaches to fighting complexity. ... The first approach is to eliminate complexity by making code simpler and more obvious. ...
 > 
-> The second approach to complexity is to encapsulate it, so that programmers can work on a system without being exposed to all of its complexity at once. This approach is called modular design
+> The second approach to complexity is to encapsulate it, so that programmers can work on a system without being exposed to all of its complexity at once. This approach is called modular design.
 >
 > &mdash; &lt;&lt;A Philosophy of Software Design&gt;&gt; John Ousterhout
 
@@ -51,11 +51,146 @@ Cohesion is contrast with coupling, refers to degree to which **the elements ins
 > &mdash; &lt;&lt;Structured Design&gt;&gt; Larry Constantine
 
 
+## Analysis
+
+There are 7 kinds of different cohesion as structured design described. the way of grouping file at MVC pattern, one of the most common cases of logical cohesion, haves inferior cohesion. 
+
+Take Django as example: it groups *urls* together, and groups *views* together. you can mapping urls to views manually. On the surface, it looks more "pure" and neater, which is just a illusion, in fact, it's a worse form of organization and used frequently by many programmers.
+
+~~~
+                               +--------------------------------------------+
+                               |  +--------+    +--------+    +--------+    |
+                               |  |  url1  |    |  url2  |    |  url3  |    |  url components
+    +--------+                 |  +--------+    +--------+    +--------+    |
+    |  urls  |                 +--------------------------------------------+ 
+    +--------+                                       |       
+        |       ---------->                          | 
+        v                                            v
+    +--------+                 +--------------------------------------------+
+    | views  |                 |  +--------+    +--------+    +--------+    |
+    +--------+                 |  | view1  |    | view2  |    | view3  |    |  view components
+                               |  +--------+    +--------+    +--------+    |
+                               +--------------------------------------------+
+
+~~~
 
 
+Frankly, the structure looks pretty, clear, and each component is at right place. If you want to change *url*, you can quickly find out where it is, and if you want to change *view*, easily too.  Everything looks fine. However, if you go through it, you get to feel hard slowly.
+
+There is a motto needs to be remembered:
+
+> Practicality beats purity. 
+> 
+> &mdash; The Zen of Python, by Tim Peters
+
+The structure of files in Django app:
+
+~~~
+polls/
+    ...
+    urls.py
+    views.py
+~~~
+
+If you modified *url1*, then you check it using some tools such as *git status*, finally you look some thing like this:
+
+~~~
+modified:   .../urls.py
+~~~
+
+and if you need to add a new url and corresponding function, you will see:
+
+~~~
+modified:   .../urls.py
+modified:   .../views.py
+~~~
+
+Every time you have to modify two modules where there are only two modules.
+
+Now, how can you tell from this what has changed? The answer is NO, you can't tell until you scan the detailed modification. From this, you can only know *url* changed or view changed or both, that's all, you can't specify which one it is, which function has been changed or added. So if you don't go through all of it, you can't ensure what has been effected ultimately, without doubt, it add uncertainty. In other words, you have to take the risk that modifying something might affect something else. The reality might be that due to carelessness, you introduce some new bug somewhere, while fixing a known bug. Why does this happens? Put all urls in one modules, just because they are similar, namely, they have same logic. But if we want higher cohesion, we should focus on interrelation between elements of the same module. We can see there is nearly no relationship between url components. Why should we group it all together in one module? And obviously, this is not the only problem you are going to face.
+
+And we know *url1* will map request to *view1*, and the **relationship is necessary**. In Django, we can specify it explicitly. Imagine it: How would you handle this situation if the relationship is impclit, or in other words, you can't find out the relationship? It's hard to deal with, right?
+
+> Note that the potential impact of changes has not been reduced by introducing these artificial boundaries between sections. These remain as complex and highly interconnected as before. The program as a whole may be marginally more complex, for the introduction of "module boundaries" introduces new elements into the system, and may require involved coding to accomplish the actual interfacing implied by so many intermodular references.  
+> 
+> &mdash; &lt;&lt;Structured Design&gt;&gt; Larry Constantine
 
 
+~~~
+       +--------------------------------------------+
+       |  +--------+    +--------+    +--------+    |
+       |  |  url1  |    |  url2  |    |  url3  |    |  url components
+       |  +--------+    +--------+    +--------+    |
+       +------|--------------|------------|---------+ 
+              |              |            |          
+              |              |            |          
+              |              |            |         
+       +------|--------------|------------|---------+
+       |      v              v            v         |
+       |  +--------+    +--------+    +--------+    |
+       |  | view1  |    | view2  |    | view3  |    |  view components
+       |  +--------+    +--------+    +--------+    |
+       +--------------------------------------------+
 
+~~~
+
+Url module are tighly coupling to view module. I think this way may be a good measure: If a module is deleted, how many modules will be affected. Well known, if url module is deleted, then nothing can work.
+(NOTE: I wonder if this structure is acceptable if there are dedicated people manage the two modules separately)
+
+The above structure can be reorganized as following:
+
+~~~
+
+               /                  |                     \ 
+              /                   |                      \
+    +---------------+     +---------------+     +---------------+
+    |   +------+    |     |   +------+    |     |   +------+    |
+    |   | url1 |    |     |   | url2 |    |     |   | url3 |    |
+    |   +------+    |     |   +------+    |     |   +------+    |
+    |      |        |     |      |        |     |      |        |
+    |      v        |     |      v        |     |      v        |
+    |   +------+    |     |   +------+    |     |   +------+    |
+    |   |view1 |    |     |   |view2 |    |     |   |view3 |    |
+    |   +------+    |     |   +------+    |     |   +------+    |
+    +---------------+     +---------------+     +---------------+
+        module1               module2                module3
+
+~~~
+
+Now three modules have no coupling, and intramodule cohesion is higher than before. If you delete any one module, it will not affect else two. Comparing previous one, this structure removes intermodular dependence and strengthen intramodule dependence, or it converts couping to cohesion.
+
+> Adapting the system's design to the problem structure (or "application structure") is an extremely important design philosophy; we generally find that problematically related processing elements translate into highly interconnected code. Even if this were not true, structures that tend to group together highly interrelated elements (from the viewpoint of the problem.  once again) tend to be more effectively modular.  
+> 
+> &mdash; &lt;&lt;Structured Design&gt;&gt; Larry Constantine
+
+Then, Flask takes another way. I think it's definitely a improvement. 
+
+in this way:
+
+~~~python
+@app.route('/')
+def hello():
+    return 'Hello, World!'
+~~~
+
+So, Flask puts url and view together. Definitely, it make things more clear, and intuitive.
+
+And, things are going farther forward. In FastAPI, things become this:
+
+~~~python
+@app.post("/user/", response_model=UserOut)
+def create_user(user: UserIn):
+    return user
+~~~
+
+Obviously, it put more things together.
+
+Those minds also embodied in statements of code:
+
+## Observation
+
+
+## How to design
 
 
 
@@ -94,13 +229,14 @@ P76:
 The key question is: How much of one module must be known in order to understand another module? The more that we must know of module B in order to understand module A, the more closely connected A is to B.
 
 
+P95:
+Adapting the system's design to the problem structure (or "application structure") is an extremely important design philosophy; we generally find that problematically related processing elements translate into highly interconnected code. Even if this were not true, structures that tend to group together highly interrelated elements tend to be more effectively modular.
+
+
 P96
 Clearly, cohesion and coupling are interrelated. The greater the cohesion of individual modules in the system, the lower the coupling between modules will be. In actual practice, these two measures are correlated; that is, on the average, as one increases, the other decreases; but the correlation is not perfect. Maximizing the sum of module cohesion over all modules in a system should closely approximate the results one would obtain in trying to minimize coupling. However, it turns out to be easier both mathematically and practically to focus on cohesion.
 
 [breakline]----------------
-
-P29:
-Such interrelationships, though important to the programmer doing the detailed coding, can be ignored, for they do not really exist in the program. The associations are mental rather than physical.
 
 
 P66:
@@ -116,8 +252,5 @@ All of these measures recognize that the human-perceived complexity of program s
 P84:
 The concept of binding time is an important one in program and systems design.  When the values of parameters within some piece of code are fixed late rather than early, they are more readily changed and the system becomes more adaptable to changing requirements.
 
-
-P95:
-Adapting the system's design to the problem structure (or "application structure") is an extremely important design philosophy; we generally find that problematically related processing elements translate into highly interconnected code. Even if this were not true, structures that tend to group together highly interrelated elements tend to be more effectively modular.
 
 
