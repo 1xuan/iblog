@@ -56,7 +56,7 @@ Cohesion is contrast with coupling, refers to degree to which **the elements ins
 > &mdash; &lt;&lt;Structured Design&gt;&gt; Larry Constantine
 
 
-## Analysis
+## Take a close look
 
 There are 7 kinds of different cohesion as structured design described. the way of grouping file at MVC pattern, one of the most common cases of logical cohesion, haves inferior cohesion. 
 
@@ -182,13 +182,13 @@ def create_user(user: UserIn):
     return user
 ~~~
 
-Obviously, it put more things together, and it gets better because Putting relevant components together makes their relationship explicit. Seems that the structure become more "impure", but more pratical. There is a motto needs to be remembered:
+Obviously, it put more things together, and it gets better because putting relevant components together makes their relationship explicit. Seems that the structure become more "impure", but more pratical. There is a motto needs to be remembered:
 
 > Practicality beats purity. 
 > 
 > &mdash; The Zen of Python, by Tim Peters
 
-Those minds also embodied at everywhere of programming, even in life. For example, the statements of code:
+Those minds also embodied at everywhere of programming(even in life). For example, the statements of code:
 
 > C++ Example of Bad Code That Jumps Around
 >
@@ -207,6 +207,7 @@ Those minds also embodied at everywhere of programming, even in life. For exampl
 >     salesData.Print();
 >     travelData.Print();
 >     marketingData.Print();
+>
 > Suppose that you want to determine how marketingData is calculated. You have to start at the last line and track all references to marketingData back to the first line. marketingData is used in only a few other places, but you have to keep in mind how marketingData is used everywhere between the first and last references to it. In other words, you have to look at and think about every line of code in this fragment to figure out how marketingData is calculated. And of course this example is simpler than code you see in life-size systems.Here’s the same code with better organization:
 >
 >     MarketingData marketingData;
@@ -226,7 +227,7 @@ Those minds also embodied at everywhere of programming, even in life. For exampl
 >
 > &mdash; &lt;&lt;Code Complete&gt;&gt; Steve McConnell
 
-Why the latter example is better than former example? After all, the former example is also organized by certain rule, it's not messy at all. If to explain it, I think the key point is relationship.
+Why the latter example is better than former example? After all, the former example is also organized by certain rule, it's, on the surface, not messy at all. If to explain it, I think the key point is relationship.
 
 If use some lines to denote the implicit relationship, that would be like this:
 
@@ -249,35 +250,38 @@ If use some lines to denote the implicit relationship, that would be like this:
                 - marketingData.Print();
 ~~~
 
+while maintaining it one day, you will find that in fact it's messy absolutely.
+ 
+> Another possible contributor to complexity is the "span" of data elements - i.e., the number of program statements during which the status and value of a data element must be remembered by the programmer in order to comprehend what the module is doing; thus, a module is made more complex if a data element is loaded into an accumulator in the second instruction, and the data element then is not used until the 147th instruction.
+>
+> &mdash; &lt;&lt;Structured Design&gt;&gt; Larry Constantine
+
 and the latter example would be like this:
 
 ~~~
-  +------------------------------------+    
-  | MarketingData marketingData;       |
-  | marketingData.ComputeQuarterly();  |
-  | marketingData.ComputeAnnual();     |
-  | marketingData.Print();             |
-  +------------------------------------+    
-  +------------------------------------+    
-  | SalesData salesData;               |
-  | salesData.ComputeQuarterly();      |
-  | salesData.ComputeAnnual();         |
-  | salesData.Print();                 |
-  +------------------------------------+    
-  +------------------------------------+    
-  | TravelData travelData;             |
-  | travelData.ComputeQuarterly();     |
-  | travelData.ComputeAnnual();        |
-  | travelData.Print();                |
-  +------------------------------------+    
+  +-----------------------------------------+    
+  |  |   MarketingData marketingData;       |
+  |  |   marketingData.ComputeQuarterly();  |
+  |  |   marketingData.ComputeAnnual();     |
+  |  v   marketingData.Print();             |
+  +-----------------------------------------+    
+  +-----------------------------------------+    
+  |  |   SalesData salesData;               |
+  |  |   salesData.ComputeQuarterly();      |
+  |  |   salesData.ComputeAnnual();         |
+  |  v   salesData.Print();                 |
+  +-----------------------------------------+    
+  +-----------------------------------------+    
+  |  |   TravelData travelData;             |
+  |  |   travelData.ComputeQuarterly();     |
+  |  |   travelData.ComputeAnnual();        |
+  |  v   travelData.Print();                |
+  +-----------------------------------------+    
 ~~~
 
-
-## Observation
-
+Here, we just reorganize it in another way, then structured become much better. If looking carefully, you will find the relationship has not been reduced. Rather, it has been converted. (NOTE: here, I have some question: can the amount of relationships of a system be absolutely reduced or increased? Or the relationships can only by converted from one form to another through organizing structure ?)
 
 ## How to design
-
 
 
 
@@ -311,6 +315,10 @@ By partitioning we mean the division of the problem into smaller subproblems, so
 • Unrelated parts of the problem should reside in unrelated pieces of the system. That is, things that have nothing to do with one another don't belong together.
 
 
+P66:
+Another possible contributor to complexity is the "span" of data elements - i.e., the number of program statements during which the status and value of a data element must be remembered by the programmer in order to comprehend what the module is doing; thus, a module is made more complex if a data element is loaded into an accumulator in the second instruction, and the data element then is not used until the 147th instruction.
+
+
 P76:
 The key question is: How much of one module must be known in order to understand another module? The more that we must know of module B in order to understand module A, the more closely connected A is to B.
 
@@ -323,10 +331,6 @@ P96
 Clearly, cohesion and coupling are interrelated. The greater the cohesion of individual modules in the system, the lower the coupling between modules will be. In actual practice, these two measures are correlated; that is, on the average, as one increases, the other decreases; but the correlation is not perfect. Maximizing the sum of module cohesion over all modules in a system should closely approximate the results one would obtain in trying to minimize coupling. However, it turns out to be easier both mathematically and practically to focus on cohesion.
 
 [breakline]----------------
-
-
-P66:
-Another possible contributor to complexity is the Hspann of data elements - i.e., the number of program statements during which the status and value of a data element must be remembered by the programmer in order to comprehend what the module is doing~ thus, a module is made more complex if a data element is loaded into an accumulator in the second instruction, and the data element then is not used until the 147th instruction.
 
 
 All of these measures recognize that the human-perceived complexity of program statements varies, influencing the apparent size of a module. Three factors, implicit in the above approaches, have been identified as affecting statement complexity:
