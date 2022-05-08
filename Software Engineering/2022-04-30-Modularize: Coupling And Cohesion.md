@@ -191,6 +191,7 @@ Obviously, it put more things together, and it gets better because Putting relev
 Those minds also embodied at everywhere of programming, even in life. For example, the statements of code:
 
 > C++ Example of Bad Code That Jumps Around
+>
 >     MarketingData marketingData;
 >     SalesData salesData;
 >     TravelData travelData;
@@ -207,6 +208,7 @@ Those minds also embodied at everywhere of programming, even in life. For exampl
 >     travelData.Print();
 >     marketingData.Print();
 > Suppose that you want to determine how marketingData is calculated. You have to start at the last line and track all references to marketingData back to the first line. marketingData is used in only a few other places, but you have to keep in mind how marketingData is used everywhere between the first and last references to it. In other words, you have to look at and think about every line of code in this fragment to figure out how marketingData is calculated. And of course this example is simpler than code you see in life-size systems.Here’s the same code with better organization:
+>
 >     MarketingData marketingData;
 >     marketingData.ComputeQuarterly();
 >     marketingData.ComputeAnnual();
