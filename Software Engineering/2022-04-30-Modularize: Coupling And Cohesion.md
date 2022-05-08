@@ -1,5 +1,10 @@
 # Modularize: Coupling And Cohesion
 
+> Managing complexity is the most important technical topic in software development. In my view, it’s so important that Software’s Primary Technical Imperative has to be managing complexity.
+>
+> &mdash; &lt;&lt;Code Complete&gt;&gt; Steve McConnell
+
+
 > There are two general approaches to fighting complexity. ... The first approach is to eliminate complexity by making code simpler and more obvious. ...
 > 
 > The second approach to complexity is to encapsulate it, so that programmers can work on a system without being exposed to all of its complexity at once. This approach is called modular design.
@@ -75,13 +80,7 @@ Take Django as example: it groups *urls* together, and groups *views* together. 
 ~~~
 
 
-Frankly, the structure looks pretty, clear, and each component is at right place. If you want to change *url*, you can quickly find out where it is, and if you want to change *view*, easily too.  Everything looks fine. However, if you go through it, you get to feel hard slowly.
-
-There is a motto needs to be remembered:
-
-> Practicality beats purity. 
-> 
-> &mdash; The Zen of Python, by Tim Peters
+Frankly, the structure looks pretty, clear, and each component is at right place. If you want to change *url*, you can quickly find out where it is, and if you want to change *view*, easily too.  Everything looks fine. However, if you go through it, you get to feel hard gradually.
 
 The structure of files in Django app:
 
@@ -134,7 +133,7 @@ And we know *url1* will map request to *view1*, and the **relationship is necess
 
 ~~~
 
-Url module are tighly coupling to view module. I think this way may be a good measure: If a module is deleted, how many modules will be affected. Well known, if url module is deleted, then nothing can work.
+Url module are tightly coupling to view module. I think this way may be a good measure: If a module is deleted, how many modules will be affected. Well known, if url module is deleted, then nothing can work.
 (NOTE: I wonder if this structure is acceptable if there are dedicated people manage the two modules separately)
 
 The above structure can be reorganized as following:
@@ -157,13 +156,13 @@ The above structure can be reorganized as following:
 
 ~~~
 
-Now three modules have no coupling, and intramodule cohesion is higher than before. If you delete any one module, it will not affect else two. Comparing previous one, this structure removes intermodular dependence and strengthen intramodule dependence, or it converts couping to cohesion.
+Now three modules have no coupling, and intramodule cohesion is higher than before. If you delete any module, it will not affect else two. Comparing previous one, this structure removes intermodular dependence and strengthen intramodule dependence, or it converts couping to cohesion.
 
 > Adapting the system's design to the problem structure (or "application structure") is an extremely important design philosophy; we generally find that problematically related processing elements translate into highly interconnected code. Even if this were not true, structures that tend to group together highly interrelated elements (from the viewpoint of the problem.  once again) tend to be more effectively modular.  
 > 
 > &mdash; &lt;&lt;Structured Design&gt;&gt; Larry Constantine
 
-Then, Flask takes another way. I think it's definitely a improvement. 
+Then, Flask takes another way. I think it's definitely an improvement. 
 
 in this way:
 
@@ -175,7 +174,7 @@ def hello():
 
 So, Flask puts url and view together. Definitely, it make things more clear, and intuitive.
 
-And, things are going farther forward. In FastAPI, things become this:
+And, things are moving forward farther. In FastAPI, things become this:
 
 ~~~python
 @app.post("/user/", response_model=UserOut)
@@ -183,9 +182,94 @@ def create_user(user: UserIn):
     return user
 ~~~
 
-Obviously, it put more things together.
+Obviously, it put more things together, and it gets better because Putting relevant components together makes their relationship explicit. Seems that the structure become more "impure", but more pratical. There is a motto needs to be remembered:
 
-Those minds also embodied in statements of code:
+> Practicality beats purity. 
+> 
+> &mdash; The Zen of Python, by Tim Peters
+
+Those minds also embodied at everywhere of programming, even in life. For example, the statements of code:
+
+> C++ Example of Bad Code That Jumps Around
+>   MarketingData marketingData;
+>   SalesData salesData;
+>   TravelData travelData;
+>   
+>   travelData.ComputeQuarterly();
+>   salesData.ComputeQuarterly();
+>   marketingData.ComputeQuarterly();
+>   
+>   salesData.ComputeAnnual();
+>   marketingData.ComputeAnnual();
+>   travelData.ComputeAnnual();
+>   
+>   salesData.Print();
+>   travelData.Print();
+>   marketingData.Print();
+> Suppose that you want to determine how marketingData is calculated. You have to start at the last line and track all references to marketingData back to the first line. marketingData is used in only a few other places, but you have to keep in mind how marketingData is used everywhere between the first and last references to it. In other words, you have to look at and think about every line of code in this fragment to figure out how marketingData is calculated. And of course this example is simpler than code you see in life-size systems.Here’s the same code with better organization:
+>   MarketingData marketingData;
+>   marketingData.ComputeQuarterly();
+>   marketingData.ComputeAnnual();
+>   marketingData.Print();
+>
+>   SalesData salesData;
+>   salesData.ComputeQuarterly();
+>   salesData.ComputeAnnual();
+>   salesData.Print();
+>
+>   TravelData travelData;
+>   travelData.ComputeQuarterly();
+>   travelData.ComputeAnnual();
+>   travelData.Print();
+>
+> &mdash; &lt;&lt;Code Complete&gt;&gt; Steve McConnell
+
+Why the latter example is better than former example? After all, the former example is also organized by certain rule, it's not messy at all. If to explain it, I think the key point is relationship.
+
+If use some lines to denote the implicit relationship, that would be like this:
+
+~~~
+                - MarketingData marketingData;
+            *  /  SalesData salesData;
+        +  /  /   TravelData travelData;
+       /  /  /                                            
+       \  \  |    
+        +  \  \   travelData.ComputeQuarterly();
+       /    *  \  salesData.ComputeQuarterly();
+      /    /    - marketingData.ComputeQuarterly();
+      |    \   /                                           
+      |     *  \  salesData.ComputeAnnual();
+       \   /    - marketingData.ComputeAnnual();
+        +  |   /  travelData.ComputeAnnual();
+       /   \  /                                                            
+       \    * \   salesData.Print();
+        +      \  travelData.Print();
+                - marketingData.Print();
+~~~
+
+and the latter example would be like this:
+
+~~~
+  +------------------------------------+    
+  | MarketingData marketingData;       |
+  | marketingData.ComputeQuarterly();  |
+  | marketingData.ComputeAnnual();     |
+  | marketingData.Print();             |
+  +------------------------------------+    
+  +------------------------------------+    
+  | SalesData salesData;               |
+  | salesData.ComputeQuarterly();      |
+  | salesData.ComputeAnnual();         |
+  | salesData.Print();                 |
+  +------------------------------------+    
+  +------------------------------------+    
+  | TravelData travelData;             |
+  | travelData.ComputeQuarterly();     |
+  | travelData.ComputeAnnual();        |
+  | travelData.Print();                |
+  +------------------------------------+    
+~~~
+
 
 ## Observation
 
