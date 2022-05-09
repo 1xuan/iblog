@@ -15,7 +15,7 @@
 
 - **coupling**
 
-Over time, programmer more prefer to split system into multiple subsystems. Because they are aware: the more relevant parts of a piece of code, the more difficult to make modifications and make it correct. We can easily get a feel from experience: it is somewhat overwhelming when sevaral tasks(or problems) arise simultaneously, even more if it is parallel. We can't put our attention on varying things at the same time, it's more like a trick(imagine juggle 3 balls or more). As human beings, we are good at focusing on one thing, or say that [we can only focusing on one thing at the same time](https://www.youtube.com/watch?v=XmvSxppayTI). So the independence of modules become an important topic in software design.
+Over time, programmer more prefer to split system into multiple subsystems. Because they are aware: the more relevant parts of a piece of code, the more difficult to make modifications and make it correct. We can easily get a feel from experience: it is somewhat overwhelming when sevaral tasks(or problems) arise simultaneously, even more if it is parallel. We can't put our attention on varying things at the same time, it's more like a trick(imagine juggle 3 balls or more). As human beings, we are good at focusing on one thing, or say that [we can only focus on one thing at the same time](https://www.youtube.com/watch?v=XmvSxppayTI). So the independence of modules become an important topic in software design.
 
 There is a term, coupling, which is developed by Larry Constantine in the late 1960s as part of a structured design, to refer to the dependence **between modules**. From my perspective, a lot of people get it wrong, they just chop system into small pieces, that's all. The understanding of coupling is wrong, it oversimplified the concept, so that, in fact, not only is there more bugs, but also does developing become more inefficient.
 
@@ -108,7 +108,7 @@ Every time you have to modify two modules where there are only two modules.
 
 Now, how can you tell from this what has changed? The answer is NO, you can't tell until you scan the detailed modification. From this, you can only know *url* changed or view changed or both, that's all, you can't specify which one it is, which function has been changed or added. So if you don't go through all of it, you can't ensure what has been effected ultimately, without doubt, it add uncertainty. In other words, you have to take the risk that modifying something might affect something else. The reality might be that due to carelessness, you introduce some new bug somewhere, while fixing a known bug. Why does this happens? Put all urls in one modules, just because they are similar, namely, they have same logic. But if we want higher cohesion, we should focus on interrelation between elements of the same module. We can see there is nearly no relationship between url components. Why should we group it all together in one module? And obviously, this is not the only problem you are going to face.
 
-And we know *url1* will map request to *view1*, and the **relationship is necessary**. In Django, we can specify it explicitly. Imagine it: How would you handle this situation if the relationship is impclit, or in other words, you can't find out the relationship? It's hard to deal with, right?
+And we know *url1* will map request to *view1*, and the **relationship is necessary**. In Django, we can specify it explicitly. Imagine it: How would you handle this situation if the relationship is implicit, or in other words, you can't find out the relationship? It's hard to deal with, right?
 
 > Note that the potential impact of changes has not been reduced by introducing these artificial boundaries between sections. These remain as complex and highly interconnected as before. The program as a whole may be marginally more complex, for the introduction of "module boundaries" introduces new elements into the system, and may require involved coding to accomplish the actual interfacing implied by so many intermodular references.  
 > 
@@ -232,22 +232,22 @@ Why the latter example is better than former example? After all, the former exam
 If use some lines to denote the implicit relationship, that would be like this:
 
 ~~~
-                - MarketingData marketingData;
-            *  /  SalesData salesData;
-        +  /  /   TravelData travelData;
-       /  /  /                                            
-       \  \  |    
-        +  \  \   travelData.ComputeQuarterly();
-       /    *  \  salesData.ComputeQuarterly();
-      /    /    - marketingData.ComputeQuarterly();
-      |    \   /                                           
-      |     *  \  salesData.ComputeAnnual();
-       \   /    - marketingData.ComputeAnnual();
-        +  |   /  travelData.ComputeAnnual();
-       /   \  /                                                            
-       \    * \   salesData.Print();
-        +      \  travelData.Print();
-                - marketingData.Print();
+                -   -    MarketingData marketingData;                    
+            *  /    *    SalesData salesData;                    
+        +  /  /     +    TravelData travelData;                    
+       /  /  /                                                                       
+       \  \  |                               
+        +  \  \     +    travelData.ComputeQuarterly();                    
+       /    *  \    *    salesData.ComputeQuarterly();                    
+      /    /    -   -    marketingData.ComputeQuarterly();                    
+      |    \   /                                                                      
+      |     *  \    *    salesData.ComputeAnnual();                    
+       \   /    -   -    marketingData.ComputeAnnual();                    
+        +  |   /    +    travelData.ComputeAnnual();                    
+       /   \  /                                                                                       
+       \    * \     *    salesData.Print();                    
+        +      \    +    travelData.Print();                    
+                -   -    marketingData.Print();                    
 ~~~
 
 while maintaining it one day, you will find that in fact it's messy absolutely.
@@ -279,13 +279,16 @@ and the latter example would be like this:
   +-----------------------------------------+    
 ~~~
 
-Here, we just reorganize it in another way, then structured become much better. If looking carefully, you will find the relationship has not been reduced. Rather, it has been converted. (NOTE: here, I have some question: can the amount of relationships of a system be absolutely reduced or increased? Or the relationships can only by converted from one form to another through organizing structure ?)
+Here, we just reorganize it in another way, then structure become much better. If looking carefully, you will find the relationship has not been reduced. Rather, it has been converted. (NOTE: here, I have some question: can the amount of relationships of a system be absolutely reduced or increased? Or the relationships can only by converted from one form to another through organizing structure ?)
 
 ## How to design
 
 
 
 
+### TO BE CONTINUED ...
+
+: *I realize that this is a long-term topic. I can only slowly complete it as my minds get deeper.*
 
 
 
