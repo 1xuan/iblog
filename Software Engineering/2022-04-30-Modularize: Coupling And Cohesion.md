@@ -232,22 +232,22 @@ Why the latter example is better than former example? After all, the former exam
 If use some lines to denote the implicit relationship, that would be like this:
 
 ~~~
-                -   -    MarketingData marketingData;                    
-            *  /    *    SalesData salesData;                    
-        +  /  /     +    TravelData travelData;                    
-       /  /  /                                                                       
-       \  \  |                               
-        +  \  \     +    travelData.ComputeQuarterly();                    
-       /    *  \    *    salesData.ComputeQuarterly();                    
-      /    /    -   -    marketingData.ComputeQuarterly();                    
-      |    \   /                                                                      
-      |     *  \    *    salesData.ComputeAnnual();                    
-       \   /    -   -    marketingData.ComputeAnnual();                    
-        +  |   /    +    travelData.ComputeAnnual();                    
-       /   \  /                                                                                       
-       \    * \     *    salesData.Print();                    
-        +      \    +    travelData.Print();                    
-                -   -    marketingData.Print();                    
+                m MarketingData marketingData;                    
+            s  /  SalesData salesData;                    
+        t  /  /   TravelData travelData;                    
+       /  /  /                                                                
+       \  \  |                        
+        t  \  \   travelData.ComputeQuarterly();                    
+       /    s  \  salesData.ComputeQuarterly();                    
+      /    /    m marketingData.ComputeQuarterly();                    
+      |    \   /                                                               
+      |     s  \  salesData.ComputeAnnual();                    
+       \   /    m marketingData.ComputeAnnual();                    
+        t  |   /  travelData.ComputeAnnual();                    
+       /   \  /                                                                                
+       \    s \   salesData.Print();                    
+        t      \  travelData.Print();                    
+                m marketingData.Print();                    
 ~~~
 
 while maintaining it one day, you will find that in fact it's messy absolutely.
