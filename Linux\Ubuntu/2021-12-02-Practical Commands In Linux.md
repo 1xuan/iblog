@@ -21,7 +21,7 @@ $ strings {BINARYFILE}
 - wc (count lines of file)
 
 ~~~bash
-$ ws -l {FILE}
+$ wc -l {FILE}
 ~~~
 
 ## find files
@@ -47,8 +47,8 @@ more info:
 - xxd
 convert binary to text or vice versa
 ~~~bash
-$ xxd FILE    # convert binary to text
-$ xxd -r FILE    # convert text to binary
+$ xxd FILE    # convert text to binary
+$ xxd -r FILE    # convert binary to text
 ~~~
 
 ### find plain-text that match regex through files
@@ -81,22 +81,39 @@ $ grep {WORD} -r ./
 $ nc -l 8000 
 ~~~
 
-## scanning ports
+- transport file
+~~~
+# server:
+$ nc -l -p xxx > file2
+
+# sender:
+$ nc x.x.x.x xxx < file1
+~~~
+
+## for ports
 
 - check host port connection
 ~~~bash
 $ nc -zv 139.196.104.13 1883
 ~~~
 
-- faster scan for all ports
+- scan ports
 ~~~bash
+# faster scan for all ports
 $ nmap  -p0-65535 192.168.122.1 -T5
+
+# Scan All TCP Ports
+$ nmap -p- 192.168.122.1
+
+# scan specific port
+$ nmap -p 80 x.x.x.x
 ~~~
 
-- Scan All TCP Ports
-~~~bash
-$ nmap -p- 192.168.122.1
+- show connections and timer
 ~~~
+$ ss -tanpo
+~~~
+
 
 ## capturing tcp traffic
 
@@ -106,14 +123,24 @@ $ sudo tcpdump -i any -w /tmp/http.log &
 ~~~
 
 
+# Process
+
+## get pid
+
+- get pid by port
+
+~~~
+sudo ss -lptn 'sport = :80'
+sudo lsof -n -i :80
+~~~
 
 
+# Bash
 
-
-
-
-
-
+- redirect stderr to stdout
+~~~
+$ fuser -v -m ~/.bashrc 2>&1 | wc -l
+~~~
 
 
 
