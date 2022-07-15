@@ -22,6 +22,12 @@
 
 - `"0p`: paste content yanked last
 
+- replace all words:
+~~~
+:%s/target/replacement/g
+~~~
+
+
 ## Insert mode
 
 - `ctrl-r0`: paste content yanked last
@@ -32,4 +38,12 @@
 ## Visual Mode
 
 - gv			Start Visual mode with the same area as the previous area and the same mode.
+
+
+## Others
+
+- check out what's changed compared to original file
+~~~
+:w !diff % -
+~~~
 
