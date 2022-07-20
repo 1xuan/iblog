@@ -22,9 +22,9 @@
 - `ctrl-i`: go to newer cursor position in jumplist
 - `''`: go to position before latest jump
 - `gi`: insert text in the same position as where Insert mode was stoped last time
-- ``.`: location of last change
-- ``^`: location of last change
-- ``[`: start of last change or yank
+- `` `.``: location of last change
+- `` `^ ``: location of last insert
+- `` `[ ``: start of last change or yank
 - `g;`: traverse backward change list
 - `g,`: traverse forward change list
 
